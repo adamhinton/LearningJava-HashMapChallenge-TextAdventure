@@ -1,6 +1,8 @@
 package dev.lpa;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AdventureGame {
@@ -47,8 +49,30 @@ public class AdventureGame {
     private void loadLocations (String data){
         // Split text block by line
         // \\R is any unicode line break on any OS
+        // \n is good too but this is more robust
         for(String s : data.split("\\R")){
 
+            // Split each line into three parts
+            // The third part will contain all data after second comma. Will contain commas if any.
+            String[] parts = s.split(",", 3);
+            // remove whitespace
+            Arrays.asList(parts).replaceAll(String::trim);
+
+            // TODO: Make this method
+            Map<Compass, String> nextPlaces = loadDirections(parts[2]);
+
+            Location location = new Location(parts[1], nextPlaces);
+            adventureMap.put(parts[0], location);
         }
+
+        adventureMap.forEach((k, v) -> System.out.printf("%s:%s%n", k, v));
     }
+
+    private Map<Compass, String> loadDirections (String nextPlaces){
+        Map<Compass, String> directions = new HashMap<>();
+        List<String> nextSteps = Arrays.asList(nextPlaces.split(","));
+
+    }
+
+
 }
