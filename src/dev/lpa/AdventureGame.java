@@ -85,8 +85,27 @@ public class AdventureGame {
         }
 
         return directions;
-
     }
 
+
+    private void visit (Location location){
+        System.out.printf("*** You're standing %s *** %n", location.description);
+        System.out.println("\tFrom here, you can see:");
+        location.nextPlaces.forEach((k,v) ->{
+            System.out.printf("\t* A %s to the %s (%S) %n", v, k.getString(), k);
+        });
+        System.out.println("Select your Compass (Q to quit) >> ");
+    }
+
+    public void move (String direction){
+        var nextPlaces = adventureMap.get(lastPlace).nextPlaces;
+        String nextPlace = null;
+        if("ENSW".contains(direction)){
+            nextPlace = nextPlaces.get(Compass.valueOf(direction));
+        }
+        else{
+            System.out.println("You suck, bad direction");
+        }
+    }
 
 }
