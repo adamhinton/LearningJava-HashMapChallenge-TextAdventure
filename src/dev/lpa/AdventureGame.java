@@ -36,13 +36,15 @@ public class AdventureGame {
 
 
     public AdventureGame() {
-
-
+        this(null);
     }
 
     // Can pass in string similar to GAME_LOCATIONS above
     public AdventureGame(String customLocations) {
-
+        loadLocations(GAME_LOCATIONS);
+        if(customLocations != null){
+            loadLocations(customLocations);
+        }
     }
 
 
@@ -71,6 +73,18 @@ public class AdventureGame {
     private Map<Compass, String> loadDirections (String nextPlaces){
         Map<Compass, String> directions = new HashMap<>();
         List<String> nextSteps = Arrays.asList(nextPlaces.split(","));
+
+        // remove leading/trailing spaces
+        nextSteps.replaceAll(String::trim);
+
+        for (String nextPlace : nextSteps){
+            String[] splits = nextPlace.split(":");
+            Compass compass = Compass.valueOf(splits[0].trim());
+            String destination = splits[1].trim();
+            directions.put(compass, destination);
+        }
+
+        return directions;
 
     }
 
