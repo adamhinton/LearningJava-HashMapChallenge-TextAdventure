@@ -1,5 +1,8 @@
 package dev.lpa;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AdventureGame {
 
     private static final String GAME_LOCATIONS = """
@@ -23,4 +26,29 @@ public class AdventureGame {
         }
     }
 
+
+    private record Location(String description, Map<Compass, String> nextPlaces){}
+
+    private String lastPlace;
+    private Map<String, Location> adventureMap = new HashMap<>();
+
+
+    public AdventureGame() {
+
+
+    }
+
+    // Can pass in string similar to GAME_LOCATIONS above
+    public AdventureGame(String customLocations) {
+
+    }
+
+
+    private void loadLocations (String data){
+        // Split text block by line
+        // \\R is any unicode line break on any OS
+        for(String s : data.split("\\R")){
+
+        }
+    }
 }
